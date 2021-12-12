@@ -63,7 +63,7 @@ export const updateApplicationUserById = async (req, res) => {
 // function Create Product
 export const saveApplication = async (req, res) => {
     console.log(req.body)
-    if (!req?.body?.appName || !req?.body?.appId ) {
+    if (!req.body.appName || !req.body.appId ) {
         return res.status(400).json({ 'message': 'id and names are required' });
     }
 
