@@ -86,7 +86,7 @@ export const updateDeviceData = async (req, res) => {
 // function Create Product
 export const saveDevice = async (req, res) => {
     console.log(req.body)
-    if (!req?.body?.deviceName || !req?.body?.appId ) {
+    if (!req.body.deviceName || !req.body.appId ) {
         return res.status(400).json({ 'message': 'id and names are required' });
     }
 
