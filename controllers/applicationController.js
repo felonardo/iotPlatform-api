@@ -10,9 +10,11 @@ export const getApplications = async (req, res) => {
         const usertoken = req.headers.authorization;
         const token = usertoken.split(' ');
     var decoded = jwt_decode(token[1]);
-        var query = { "users.userId": decoded.sub}
-        console.log(decoded);
-        console.log(query);
+        // var query = { "users.userId": decoded.sub}
+        var query = { "users.userId": decoded['https://localhost:5000/email']}
+        console.log(decoded['https://localhost:5000/email']);
+        // console.log(query);
+        console.log("popo")
 
         const applications = await Application.find(query);
         res.json(applications);

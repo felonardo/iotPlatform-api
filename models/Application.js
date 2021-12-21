@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 
 //Schema
 const Application = mongoose.Schema({
+    timestamp: { 
+        type: Date, 
+        default: Date.now
+    },
     appName:{
         type: String,
         required: true

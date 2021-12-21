@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 
 //Schema
 const Device = mongoose.Schema({
+    timestamp: { 
+        type: Date, 
+        default: Date.now
+    },
     deviceName:{
         type: String,
         required: true
@@ -14,6 +18,10 @@ const Device = mongoose.Schema({
         {
             data: {
                 type: Object,
+            },
+            timestamp: { 
+                type: Date, 
+                default: Date.now
             },
         },
     ],

@@ -33,10 +33,12 @@ export const getDeviceData = async (req, res) => {
         var query = { 
             appId: req.params.appId, 
             deviceName: req.params.deviceName,
-            // "users.userId": decoded.sub 
         };
+        var sort = {
+            '_id': 1,
+        }
         console.log(query)
-        const devices = await Device.find(query);
+        const devices = await Device.find(query).sort({"timestamp":-1});
         res.json(devices);
     } catch (error) {
 
