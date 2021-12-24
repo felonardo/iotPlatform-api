@@ -77,7 +77,10 @@ export const updateDeviceData = async (req, res) => {
         },
         }
         console.log(query);
-        const device = await Device.findOneAndUpdate(query, update);
+        var device = await Device.findOneAndUpdate(query, update,  {
+            new: true
+          });
+        // device = Device.find(query);
         res.json(device);
     } catch (error) {
         res.status(404).json({message: error.message});
