@@ -7,7 +7,7 @@ import cors from "cors";
 const app = express()
 
 // connect db mongoDB
-mongoose.connect("mongodb+srv://felonardo:dune2021@cluster0.4r4hl.mongodb.net/qibo-db?retryWrites=true&w=majority",{ 
+mongoose.connect("mongodb+srv://felonardo:dune2021@cluster0.4r4hl.mongodb.net/qibo-db-dev?retryWrites=true&w=majority",{ 
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
