@@ -33,12 +33,16 @@ export const getDeviceData = async (req, res) => {
         var query = { 
             appId: req.params.appId, 
             deviceName: req.params.deviceName,
-        };
-        var sort = {
-            '_id': 1,
         }
         console.log(query)
-        const devices = await Device.find(query).sort({"timestamp":-1});
+        // const devices = await Device.find(query).sort({"datas.timestamp": 'desc'});
+        const devices = await Device.aggregate([
+            { $match: query},
+            { $unwind: '$datas' },
+            { $limit : 20},
+            { $sort: { 'datas.timestamp': -1 }},
+            { $group: { _id: '$_id', datas: { $push: '$datas'}}}])
+        console.log("get Device Data:",devices)
         res.json(devices);
     } catch (error) {
 
@@ -70,18 +74,27 @@ export const updateDeviceData = async (req, res) => {
             deviceName: req.params.deviceName,
         };
         var update = {
-            $push: { "datas": 
+            $push: { 
+                "datas": 
             {
-                data: req.body,
+                $each: [{data: req.body}],
+                $sort: {timestamp: -1},
+                // $slice: 3
             }
         },
         }
         console.log(query);
         var device = await Device.findOneAndUpdate(query, update,  {
-            new: true
+            new: true,
+            upsert: true,
+            // sort: { 'datas.timestamp': -1 },
+            // limit: {'datas': 2},
           });
-        // device = Device.find(query);
-        res.json(device);
+        var tes = await Device.findOne(query, {'datas': {$slice:1}});
+        console.log("dev:",device)
+        console.log("tes######:",JSON.stringify(tes))
+        res.json(tes);
+
     } catch (error) {
         res.status(404).json({message: error.message});
     }
