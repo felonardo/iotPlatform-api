@@ -90,7 +90,7 @@ export const updateDeviceData = async (req, res) => {
             // sort: { 'datas.timestamp': -1 },
             // limit: {'datas': 2},
           });
-        var tes = await Device.findOne(query, {'datas': {$slice:1}});
+        var tes = await Device.findOne(query, {'datas': {$slice:20}});
         console.log("dev:",device)
         console.log("tes######:",JSON.stringify(tes))
         res.json(tes);
