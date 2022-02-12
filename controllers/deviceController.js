@@ -13,7 +13,9 @@ export const getDevices = async (req, res) => {
         var query = { 
             appId: req.params.appId, 
             // "users.userId": decoded.sub 
+            "users.userId": decoded['https://localhost:5000/email']
         };
+        console.log(decoded['https://localhost:5000/email']);
         console.log(query)
         const applications = await Device.find(query);
         res.json(applications);

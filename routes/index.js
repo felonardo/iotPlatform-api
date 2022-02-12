@@ -14,6 +14,12 @@ import { getDevices,
         saveDevice, 
         updateDevice,
         deleteDevice } from "../controllers/deviceController.js";
+
+
+import { getWidgets, 
+    saveWidget, 
+    updateWidget,
+    deleteWidget } from "../controllers/widgetController.js";
     
     // express router
 const router = express.Router();
@@ -30,7 +36,7 @@ var jwtCheck = jwt({
           jwksRequestsPerMinute: 5,
           jwksUri: 'https://dev-aa9a8b36.us.auth0.com/.well-known/jwks.json'
     }),
-    audience: 'http://143.244.150.6:5000',
+    audience: 'http://localhost:5000',
     issuer: 'https://dev-aa9a8b36.us.auth0.com/',
     algorithms: ['RS256']
 });
@@ -57,6 +63,24 @@ router.post('/:appId/:deviceName', jwtCheck, updateDeviceData);
 router.post('/devices', jwtCheck, saveDevice);
 router.patch('/devices/:id', jwtCheck, updateDevice);
 router.delete('/devices/:id', jwtCheck, deleteDevice);
+
+router.get('/widgets', jwtCheck, getWidgets);
+// router.get('/:appId/:widgetName', jwtCheck, getWidgetData);
+// router.post('/:appId/:widgetName', jwtCheck, updateWidgetData);
+router.post('/widgets', jwtCheck, saveWidget);
+router.patch('/widgets/:id', jwtCheck, updateWidget);
+router.delete('/widgets/:id', jwtCheck, deleteWidget);
+
+//chirpstack
+// router.get('/api/applications', jwtCheck, method);
+// router.post('/api/applications', jwtCheck, method);
+// // router.post('/api/organizations', jwtCheck, method);
+// router.get('/api/devices', jwtCheck, method);
+// router.get('/api/devices/:id', jwtCheck, method);
+// router.get('/api/device-profiles', jwtCheck, method);
+// router.get('/api/devices/:id/frames', jwtCheck, method);
+// router.post('/api/internal/login', jwtCheck, method);
+
 
 // export router
 export default router;
