@@ -37,7 +37,7 @@ export const getDeviceData = async (req, res) => {
             deviceName: req.params.deviceName,
         }
         console.log(query)
-        // const devices = await Device.find(query).sort({"datas.timestamp": 'desc'});
+        // const device = await Device.findOne(query);
         const devices = await Device.aggregate([
             { $match: query},
             { $unwind: '$datas' },
@@ -45,6 +45,7 @@ export const getDeviceData = async (req, res) => {
             { $sort: { 'datas.timestamp': -1 }},
             { $group: { _id: '$_id', datas: { $push: '$datas'}}}])
         console.log("get Device Data:",devices)
+
         res.json(devices);
     } catch (error) {
 
@@ -58,14 +59,17 @@ export const getDeviceData = async (req, res) => {
 // function get single Product
 export const getDeviceById = async (req, res) => {
     try {
-        const device = await Device.findById(req.params.id);
-        res.json(device);
+        console.log("body:",req.params.deviceName)
+        var query = { 
+            deviceName: req.params.deviceName,
+        }
+        const device = await Device.findOne(query)
+        console.log("getDeviceID:",device.isLora)
+        res.json(device.isLora);
     } catch (error) {
         res.status(404).json({message: error.message});
     }
-    
 }
-
 
 
 export const updateDeviceData = async (req, res) => {
@@ -114,6 +118,7 @@ export const saveDevice = async (req, res) => {
         const result = await Device.create({
             appId: req.body.appId,
             deviceName: req.body.deviceName,
+            isLora: false,
             users: [
                 {
                     userId: req.body.userId,

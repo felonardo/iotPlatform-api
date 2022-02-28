@@ -20,6 +20,9 @@ import { getWidgets,
     saveWidget, 
     updateWidget,
     deleteWidget } from "../controllers/widgetController.js";
+
+
+import { getAppChirpStack, postAppChirpStack, getDevChirpStack, postDevChirpStack } from "../controllers/chirpstackController.js";
     
     // express router
 const router = express.Router();
@@ -57,6 +60,8 @@ router.post('/applications', jwtCheck, saveApplication);
 router.patch('/applications/:id', jwtCheck, updateApplication);
 router.delete('/applications/:id', jwtCheck, deleteApplication);
 
+router.get('/device/:deviceName', jwtCheck, getDeviceById);
+// router.get('/device/:appId/:deviceName', jwtCheck, getDeviceById);
 router.get('/devices/:appId', jwtCheck, getDevices);
 router.get('/:appId/:deviceName', jwtCheck, getDeviceData);
 router.post('/:appId/:deviceName', jwtCheck, updateDeviceData);
@@ -72,11 +77,12 @@ router.patch('/widgets/:id', jwtCheck, updateWidget);
 router.delete('/widgets/:id', jwtCheck, deleteWidget);
 
 //chirpstack
-// router.get('/api/applications', jwtCheck, method);
-// router.post('/api/applications', jwtCheck, method);
+// router.get('/api/lora/getJWT', jwtCheck, getJWT);
+router.get('/api/app/lora', jwtCheck, getAppChirpStack);
+router.post('/api/app/lora', jwtCheck, postAppChirpStack);
 // // router.post('/api/organizations', jwtCheck, method);
-// router.get('/api/devices', jwtCheck, method);
-// router.get('/api/devices/:id', jwtCheck, method);
+router.post('/api/dev/lora', jwtCheck, postDevChirpStack);
+router.get('/api/dev/lora', jwtCheck, getDevChirpStack);
 // router.get('/api/device-profiles', jwtCheck, method);
 // router.get('/api/devices/:id/frames', jwtCheck, method);
 // router.post('/api/internal/login', jwtCheck, method);

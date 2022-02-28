@@ -10,6 +10,10 @@ const Device = mongoose.Schema({
         type: String,
         required: true
     },
+    isLora: {
+        type: Boolean,
+        required: true
+    },
     appId:{
         type: String,
         required: true
